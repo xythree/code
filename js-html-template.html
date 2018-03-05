@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js-html-template</title>
+</head>
+<body>
+<div id="result"></div>
+<script id="tpl" type="text/template">
+js-html-template:
+<% if (this.islogin) { %> 
+    <ul>
+        <li>name: <% this.name %></li>
+        <li>time: <% this.time %></li>
+        <li>age: <% this.group.age %></li>
+    </ul>
+<% } else { %>
+    nothing!
+<%}%>
+ 
+</script>
+<script type="text/javascript">
+var TemplateEngine = function (tpl, options) {
+    var reg = /<%([^%>]+)?%>/g
+    var reExp = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g
+    var match = ""
+    var cursor = 0
+    var code = "var r=[];"
+    function _push(c, js) {    
+        js ? code += c.match(reExp) ? c + "\n" : "r.push(" + c + ");" :
+        code += "r.push(\"" + c.replace(/\"/g, "\\\"") + "\");"
+    }
+    while (match = reg.exec(tpl)) {
+        _push(tpl.slice(cursor, match.index))
+        _push(match[1], true)
+        cursor = match.index + match[0].length
+    }
+    _push(tpl.substr(cursor, tpl.length + cursor))
+    code += "return r.join(\"\");"
+    
+    return new Function(code.replace(/[\r\n\t]/g,"")).apply(options)
+}
+function $id(id) {
+    return typeof id == "string" ? document.getElementById(id) : id
+}
+/* example */
+var str = TemplateEngine($id("tpl").innerHTML, {
+        islogin: true,
+        name: "xythree",
+        time: new Date,
+        group: {
+            age: 1
+        }
+    })
+$id("result").innerHTML = str
+</script>
+    
+</body>
+</html>

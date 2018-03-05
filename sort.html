@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>sort</title>
+</head>
+<body>
+<script type="text/javascript">
+var tempArr = []
+for(var ai = 0; ai < 100; ai++) {
+    tempArr.push(Math.round(Math.random()*100))
+}
+//桶排序
+var arr = [3,3,5,2,9]
+function sort(arr) {
+    var newArr = [], temp = [], len = 10
+    
+    for(var i = 0; i < len; i++) {
+        newArr[i] = 0
+    }
+    
+    for(var i = 0; i < len; i++) {
+        newArr[arr[i]]++ 
+    }
+    
+    for(var i = 0; i < len; i++) {
+        if (newArr[i]) {
+            for(var z = 0; z < newArr[i]; z++) {
+                temp.push(i)
+            }
+        }
+    }
+    return temp 
+}
+sort(arr)
+//快速排序
+var arr2 = [1, 4, 7, 9, 3, 2, 5, 10, 8, 6]
+function sort2(left, right) {
+    
+    var i = left, j = right, temp = arr2[left]
+    
+    //if (left >= right) {
+    if (left > right) {     
+        return
+    }
+    
+    while(i != j) {
+        
+        while(arr2[j] >= temp && i < j) {
+            j--         
+        }
+        while(arr2[i] <= temp && i < j) {
+            i++
+        }
+        if (i < j) {
+            arr2[i] = [arr2[j], arr2[j] = arr2[i]][0]
+        }
+        
+    }
+    arr2[left] = arr2[i]
+    arr2[i] = temp
+    
+    sort2(left, i - 1)
+    sort2(i + 1, right)
+    
+}
+sort2(0, arr2.length - 1)
+//冒泡排序
+var arr3 = [3,4,1,8,3,5,9,10]
+function sort3(arr) {   
+    var len = arr.length - 1, temp
+    
+    console.time()
+    for(var i = 0; i < len; i++) {    
+        
+        //正序
+        for(var j = 0; j < len - i - 1; j++) {
+            if (arr[j] > arr[j+1]) {
+                //arr[j] = [arr[j+1], arr[j+1] = arr[j]][0]
+                temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }       
+        
+        /*
+        //倒序
+        for(var j = len - 1; j >= i; j--) {
+            if (arr[j] < arr[j+1]) {
+                //arr[j] = [arr[j+1], arr[j+1] = arr[j]][0]
+                temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }
+        */
+    }
+    console.timeEnd()
+    return arr
+}
+//改进后的冒泡排序，数量不大，效果并不明显
+function sort4(arr) {   
+    var left = 0, right = arr.length - 1
+    var i, temp
+    
+    console.time()
+    
+    //正序    
+    while(left < right) {
+        for(i = left; i < right; i++) {
+            if (arr[i] > arr[i + 1]) {
+                //arr[i] = [arr[i+1], arr[i+1] = arr[i]][0]
+                temp = arr[i]
+                arr[i] = arr[i + 1]
+                arr[i + 1] = temp
+            }
+        }
+        right--     
+        for(i = right; i > left; i--) {
+            if (arr[i] < arr[i - 1]) {
+                //arr[i] = [arr[i-1], arr[i-1] = arr[i]][0]
+                temp = arr[i]
+                arr[i] = arr[i - 1]
+                arr[i - 1] = temp
+            }
+        }       
+        left++
+    }
+    
+    /*
+    //倒序    
+    while(left < right) {
+        
+        for(i = left; i < right; i++) {
+            if (arr[i] < arr[i + 1]) {
+                //arr[i] = [arr[i + 1], arr[i + 1] = arr[i]][0]
+                temp = arr[i]
+                arr[i] = arr[i + 1]
+                arr[i + 1] = temp
+            }
+        }       
+        for(i = right; i > left; i--) {
+            if (arr[i] > arr[i - 1]) {
+                //arr[i] = [arr[i - 1], arr[i - 1] = arr[i]][0]
+                temp = arr[i]
+                arr[i] = arr[i - 1]
+                arr[i - 1] = temp
+            }
+        }
+        left++
+        right--
+    }
+    */
+    
+    console.timeEnd()
+    
+    return arr
+}
+//选择排序
+function sort5(arr) {
+    var len = arr.length
+    var temp, index
+    
+    console.time()
+    for(var i = 0; i < len - 1; i++) {
+        index = i
+        for(var j = i + 1; j < len; j++) {
+            //if (arr[j] < arr[index]) {     //正序
+            if (arr[j] > arr[index]) {     //倒序
+                index = j
+            }
+        }
+        
+        temp = arr[i]
+        arr[i] = arr[index]
+        arr[index] = temp       
+    }
+    console.timeEnd()
+    return arr
+}
+</script>
+    
+</body>
+</html>
