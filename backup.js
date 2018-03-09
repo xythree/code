@@ -115,3 +115,27 @@ function isElementInViewport(el) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     )
 }
+
+
+//execCommand 手机上复制文本
+function copyText(txt, callback) {
+	const doc = document
+	const input = doc.createElement('input')
+    
+	input.setAttribute('readonly', 'readonly') //防止屏幕下方出现白屏抖动
+    input.setAttribute('value', txt)
+    doc.body.appendChild(input)
+	input.select()//pc上需要
+	input.setSelectionRange(0, 9999)//mobile上需要
+	
+	if (doc.execCommand('copy')) {		
+		callback && callback()
+	}
+    doc.body.removeChild(input)
+})
+
+
+
+
+
+
