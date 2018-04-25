@@ -134,6 +134,39 @@ function copyText(txt, callback) {
     doc.body.removeChild(input)
 })
 
+//转base64格式
+function base64Image(path, callback) {
+    let img = new Image()
+    img.src = path
+    img.onload = function () {
+        //默认按比例压缩
+        let w = this.width
+        let h = this.height
+        let quality = 0.95 // 默认图片质量为0.7
+
+        //生成canvas
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
+
+        // 创建属性节点
+        canvas.setAttribute("width", w)
+        canvas.setAttribute("height", h)
+
+        ctx.drawImage(this, 0, 0, w, h)
+        // quality值越小，所绘制出的图像越模糊
+        let base64 = canvas.toDataURL('image/jpeg', quality)
+        // 回调函数返回base64的值
+        callback && callback(base64)
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
