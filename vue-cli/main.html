@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--
+    <meta content="target-densitydpi=device-dpi,width=750,user-scalable=no,minimal-ui" name="viewport" id="viewport">
+    -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <title>my-project</title>
+    <link rel="stylesheet" href="https://www.xythree.com/css/reset.min.css">
+    <script>
+        ;
+        (function(win, doc) {
+            let timer
+
+            function fontSize() {
+                let deviceWidth = doc.documentElement.clientWidth
+                let widthVal = 750
+                if (deviceWidth > widthVal) {
+                    deviceWidth = widthVal
+                }
+                doc.documentElement.style.fontSize = deviceWidth / (widthVal / 100) + "px"
+            }
+            fontSize()
+                //var docEl = window.document.documentElement;
+                //var winWidth = docEl.getBoundingClientRect().width;
+                //document.documentElement.style.fontSize = winWidth / 10 + "px";
+            win.addEventListener("resize", function() {
+                clearTimeout(timer)
+                    //timer = setTimeout(fontSize, 300)
+            }, false)
+
+        })(window, document);
+
+
+
+        /*
+        function modifileRootRem() {
+            var root = window.document.documentElement;
+            var fontSize = parseFloat(root.style.fontSize);
+            var finalFontSize = parseFloat(window.getComputedStyle(root).getPropertyValue("font-size"));
+            if (finalFontSize === fontSize) return;
+            root.style.fontSize = fontSize + (fontSize - finalFontSize) + "px";
+        }
+        if (typeof window.onload === 'function') {
+            var oldFun = window.onload;
+            window.onload = function() {
+                oldFun();
+                modifileRootRem();
+            }
+        } else {
+            window.onload = modifileRootRem;
+        }
+        */
+    </script>
+</head>
+
+<body>
+    <div id="i"></div>
+    <!-- built files will be auto injected -->
+</body>
+
+</html>
