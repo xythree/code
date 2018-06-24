@@ -20,7 +20,7 @@ let encode = function(key, str) { //加密
 }
 
 let decode = function(key, str) { //解密
-    let str = unescape(str)
+    str = unescape(str)
     let rs = ''
     for(let i = 0, j = 0; i < str.length; i++, j++) {
         if(j == key.length) {
